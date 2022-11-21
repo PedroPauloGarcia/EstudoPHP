@@ -14,6 +14,11 @@
 
 		$sql_code = "SELECT * FROM produtos";
 		$sql_query = $conexao->query($sql_code);
+
+		if(!isset($_SESSION)){
+			session_start();
+		}
+
 		?>
 		<main>
 			<h1>Produtos</h1>
@@ -41,8 +46,13 @@
 					<td><?= $produto['fabricante']?></td>
 					<td><?= $produto['ativo']?></td>
 					<td>
-					<a href="estoque.php?id=<?=$produto['idproduto']; ?>">[ESTOQUE]</a>
-                        <a href="mais_detalhes?id=<?=$produto['idproduto']; ?>">[DETALHES]</a>
+						<?php
+						if(isset($_SESSION['tipo'])){
+							$idProduto = $produto['idproduto'];
+							echo "<a href='estoque.php?id=$idProduto;'>[ESTOQUE]</a>";
+						}?>
+                        <a href="mais_detalhes.php?id=<?=$produto['idproduto']; ?>">[DETALHES]</a>
+						<a href="estoque.php?id=<?=$produto['idproduto']; ?>">[ESTOQUE]</a>
 					</td>
 				</tr>
 				<?php

@@ -14,10 +14,9 @@
 
 		$id= isset($_GET["id"]) ? $_GET["id"] : 0;
 
-		$sql_code = "SELECT * FROM produtos LEFT JOIN  estoque ON idproduto = id_produto WHERE idproduto = '$id'";
-		$sql_query = $conexao->query($sql_code);
+		$sql_code = "SELECT * FROM produtos LEFT JOIN  estoque ON idproduto = id_produto WHERE idproduto = '$id'"; 
+		 $sql_query = $conexao->query($sql_code);
 
-		
 		?>
 		<main>
 			<h1>Estoque</h1>
@@ -54,6 +53,17 @@
 					<td><?= $produto['valor_venda']?></td>
 				</tr>
 				<?php
+				$qtd = isset($_POST["qtd"]) ? $_POST["qtd"] : "";
+				$registro = isset($_POST["registro"]) ? $_POST["registro"] : "";
+				$data_registro = isset($_POST["data_registro"]) ? $_POST["data_registro"] : "";
+				$valor_compra = isset($_POST["valor_compra"]) ? $_POST["valor_compra"] : "";
+				$valor_venda = isset($_POST["valor_venda"]) ? $_POST["valor_venda"] : "";
+				$ativo = isset($_POST["ativo"]) ? $_POST["ativo"] : true;
+
+				$sql_code = "INSERT INTO estoque VALUES (NULL, '$qtd', '$registro', '$data_registro', '$valor_compra', '$valor_venda', true)";
+
+				 $sql_query = $conexao->query($sql_code) or die("Falha na execução do código SQL: " . $conexao->error . "<br>" . var_dump($conexao->error));
+
 				}
 				?>
 			</table>
